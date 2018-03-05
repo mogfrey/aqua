@@ -128,7 +128,7 @@ def post_distance(request):
     _input = loads(request.POST['data'], preserve_order=True)
 
     data = _input['distance']
-    #pusher_client.trigger('distance-channel', 'new-distance-event', {'value': data})
+    pusher_client.trigger('distance-channel', 'new-distance-event', {'value': data})
     success = {
                 'message':'success',
                 'data':data,
