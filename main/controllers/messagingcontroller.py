@@ -26,14 +26,13 @@ def send_message(request):
         receiver=request.POST['receiver']
         chat_id=request.POST['chat_id']
         message=request.POST['message']
-        create=Messages(sender=sender, receiver=receiver, chat_id=chat_id, message=message, created_at = datetime.date.today(),updated_at= datetime.date.today())
-        create.save()
-        
         pusher_client.trigger(chat_id, 'new-message-text',{'values':{
             'sender':sender,
             'receiver':receiver,
             'message':message
         }})
+        create=Messages(sender=sender, receiver=receiver, chat_id=chat_id, message=message, created_at = datetime.date.today(),updated_at= datetime.date.today())
+        create.save()
         return Response({
             'message':'success',
             'status_code':200
@@ -41,8 +40,8 @@ def send_message(request):
 
     except BaseException as e:   
         error = {
-                'message':'error:'+ str(e),
-                'status_code':500
+                    'message':'error:'+ str(e),
+                    'status_code':500
                 }
             
         return Response(error) 
