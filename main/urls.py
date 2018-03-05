@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^fetch_values/', datacontroller.fetch_values),
     url(r'^clear_data/', datacontroller.clear_data),
     url(r'^current_temperature/', datacontroller.current_temperature),
+    url(r'^post_distance/',datacontroller.post_distance),
 
     #user management methods
     url(r'^new_user/', usercontroller.user_manage),

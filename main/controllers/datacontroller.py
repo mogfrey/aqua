@@ -119,7 +119,18 @@ def clear_data(request):
 
     return Response(success)
 
-    
+
+
+@api_view(['POST'])
+def post_distance(request):
+    pusher_client.trigger('distance-channel', 'new-distance-event', {'value': temperature})
+    success = {
+                'message':'success',
+                'data':[],
+                'status_code':200
+            } 
+    return Response(success)
+
 
 
 def push_values():
@@ -158,6 +169,19 @@ def current_temperature():
                 'status_code':200
             } 
     return success
+
+
+def current_distance(temperature):
+    pusher_client.trigger('distance-channel', 'new-distance-event', {'value': temperature})
+    success = {
+                'message':'success',
+                'data':[],
+                'status_code':200
+            } 
+    return success
+
+
+
 
 
 
