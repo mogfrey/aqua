@@ -127,11 +127,11 @@ def clear_data(request):
 def post_distance(request):
     _input = loads(request.POST['data'], preserve_order=True)
 
-    #data = _input[0]['distance']
+    data = _input['distance']
     #pusher_client.trigger('distance-channel', 'new-distance-event', {'value': data})
     success = {
                 'message':'success',
-                'data':_input,
+                'data':data,
                 'status_code':200
             } 
     return Response(success)
