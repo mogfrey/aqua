@@ -135,6 +135,18 @@ def post_distance(request):
     return Response(success)
 
 
+@api_view(['POST'])
+def post_ph(request):
+    _input =request.POST['data']
+    pusher_client.trigger('ph-channel', 'new-ph-event', {'value':_input})
+    success = {
+                'message':'success',
+                'data':_input,
+                'status_code':200
+            } 
+    return Response(success)    
+
+
 
 def push_values():
     temperatures = Temperatures.objects.filter(month=10).order_by('day')[:300]

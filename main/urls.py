@@ -12,6 +12,9 @@ urlpatterns = [
     url(r'^clear_data/', datacontroller.clear_data),
     url(r'^current_temperature/', datacontroller.current_temperature),
     url(r'^post_distance/',datacontroller.post_distance),
+    url(r'^post_ph/',datacontroller.post_ph),
+
+    
 
     #user management methods
     url(r'^new_user/', usercontroller.user_manage),
