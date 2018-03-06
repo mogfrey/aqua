@@ -14,8 +14,6 @@ urlpatterns = [
     url(r'^post_distance/',datacontroller.post_distance),
     url(r'^post_ph/',datacontroller.post_ph),
 
-    
-
     #user management methods
     url(r'^new_user/', usercontroller.user_manage),
     url(r'^create_session/', usercontroller.pass_check),
