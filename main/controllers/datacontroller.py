@@ -125,9 +125,9 @@ def clear_data(request):
 
 @api_view(['POST'])
 def post_distance(request):
-    _input = loads(request.POST['data'], preserve_order=True)
+    _input =request.POST['data']
 
-    data = _input['distance']
+    data = _input[0]['distance']
     pusher_client.trigger('distance-channel', 'new-distance-event', {'value': data})
     success = {
                 'message':'success',
