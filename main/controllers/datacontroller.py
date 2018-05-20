@@ -22,7 +22,9 @@ _DEVLOPER_KEY_="AIzaSyDJsKwHikseUohUcvNu-CIJDIqA_yopnKo"
 @api_view(['GET'])
 def search_data(request):
     data = []
-    page = request.GET.get('page', 1)
+    page = int(request.GET.get('page'))
+
+    
     
     #site 1
     soup = rip_site_data('http://www.roysfarm.com/fish-farming-in-kenya/') 
