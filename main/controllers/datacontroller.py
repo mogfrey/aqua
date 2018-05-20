@@ -38,6 +38,7 @@ def search_data(request):
             'link':a.get('href'),
             'image':img['src'],
             'title':a['title'],
+            'snippet':''
         })
 
 
@@ -51,6 +52,7 @@ def search_data(request):
             'link':a.get('href'),
             'image':img['src'],
             'title':a['title'],
+            'snippet':''
         })
 
     #site 3
@@ -63,6 +65,7 @@ def search_data(request):
             'link':a.get('href'),
             'image':img['src'],
             'title':a['title'],
+            'snippet':''
         })
 
     #site 4
@@ -75,6 +78,7 @@ def search_data(request):
             'link':a.get('href'),
             'image':img['src'],
             'title':a['title'],
+            'snippet':''
         })
 
     
