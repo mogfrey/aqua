@@ -24,13 +24,4 @@ urlpatterns = [
     url(r'^send_message/', messagingcontroller.send_message),
     url(r'^get_messages/', messagingcontroller.get_messages),
 
-    
-
-
-    
-    
-
-
-    
-
 ]

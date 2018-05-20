@@ -22,12 +22,8 @@ _DEVLOPER_KEY_="AIzaSyDJsKwHikseUohUcvNu-CIJDIqA_yopnKo"
 @api_view(['GET'])
 def search_data(request):
     data = []
-    try:
-        page = request.data['page']
-    except KeyError:
-        page = 1
-        
-
+    page = request.GET.get('page', 1)
+    
     #site 1
     soup = rip_site_data('http://www.roysfarm.com/fish-farming-in-kenya/') 
     for link in soup.find_all('article'):
