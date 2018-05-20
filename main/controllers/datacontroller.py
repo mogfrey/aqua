@@ -84,7 +84,8 @@ def search_data(request):
     
     snippets={
         'message': paginate(data, page),
-        'status_code':200
+        'status_code':200,
+        'total': len(data),
     }
     return Response(snippets)
 
