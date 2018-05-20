@@ -5,6 +5,8 @@ from rest_framework.response import Response
 from main.models import Farmers, Farms, Temperatures
 from json_tricks import dumps, loads
 from pusher import Pusher
+from bs4 import BeautifulSoup
+from urllib.request import Request, urlopen
 import datetime
 
 
@@ -19,30 +21,85 @@ _DEVLOPER_KEY_="AIzaSyDJsKwHikseUohUcvNu-CIJDIqA_yopnKo"
 
 @api_view(['GET'])
 def search_data(request):
-   
+    data = []
     try:
-        service = build("customsearch", "v1",
-                developerKey=_DEVLOPER_KEY_)
-
-        res = service.cse().list(
-            q='fish farming kenya',
-            cx='017576662512468239146:omuauf_lfve',
-        ).execute()
-
-        snippets={
-            'message': res,
-            'status_code':200
-        }
-        return Response(snippets)
-
-    except:
+        page = request.data['page']
+    except KeyError:
+        page = 1
         
-        snippets={
-            'message':'error encountered',
-            'status_code':500
-        }
-        return Response(snippets)
 
+    #site 1
+    soup = rip_site_data('http://www.roysfarm.com/fish-farming-in-kenya/') 
+    for link in soup.find_all('article'):
+        a = link.find('a')
+        img = link.find('img')
+        
+        data.append({
+            'link':a.get('href'),
+            'image':img['src'],
+            'title':a['title'],
+        })
+
+
+    #site 2
+    soup = rip_site_data('http://www.roysfarm.com/pond-management/') 
+    for link in soup.find_all('article'):
+        a = link.find('a')
+        img = link.find('img')
+        
+        data.append({
+            'link':a.get('href'),
+            'image':img['src'],
+            'title':a['title'],
+        })
+
+    #site 3
+    soup = rip_site_data('http://www.roysfarm.com/fish-diseases/') 
+    for link in soup.find_all('article'):
+        a = link.find('a')
+        img = link.find('img')
+        
+        data.append({
+            'link':a.get('href'),
+            'image':img['src'],
+            'title':a['title'],
+        })
+
+    #site 4
+    soup = rip_site_data('http://www.roysfarm.com/freshwater-fish/') 
+    for link in soup.find_all('article'):
+        a = link.find('a')
+        img = link.find('img')
+        
+        data.append({
+            'link':a.get('href'),
+            'image':img['src'],
+            'title':a['title'],
+        })
+
+    
+    
+    
+    snippets={
+        'message': paginate(data, page),
+        'status_code':200
+    }
+    return Response(snippets)
+
+
+def rip_site_data(url):
+    req = Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+    page = urlopen(req).read()
+
+    soup = BeautifulSoup(page)
+
+    return soup
+
+def paginate(array, page):
+    mylist = array
+    total = [mylist[i:i+6] for i in range(0, len(mylist), 6)]
+    
+    return total[page - 1]
 
 
 @api_view(['POST'])
