@@ -6,7 +6,7 @@ from .controllers import datacontroller, usercontroller, messagingcontroller
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^search_data/', datacontroller.search_data),
+    url(r'^search_data/$', datacontroller.search_data),
     url(r'^store_values/', datacontroller.store_values),
     url(r'^fetch_values/', datacontroller.fetch_values),
     url(r'^clear_data/', datacontroller.clear_data),
