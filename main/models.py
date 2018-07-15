@@ -28,6 +28,28 @@ class Temperatures(models.Model):
     microsecond = models.IntegerField(default=0)
     value = models.IntegerField(default=0)
 
+class Ph(models.Model):
+    farm_id =  models.CharField(max_length=255, default=None)
+    year =  models.IntegerField(default=0)
+    month =  models.IntegerField(default=0)
+    day = models.IntegerField(default=0)
+    hour = models.IntegerField(default=0)
+    minute = models.IntegerField(default=0)
+    second = models.IntegerField(default=0)
+    microsecond = models.IntegerField(default=0)
+    value = models.IntegerField(default=0)
+
+class Level(models.Model):
+    farm_id =  models.CharField(max_length=255, default=None)
+    year =  models.IntegerField(default=0)
+    month =  models.IntegerField(default=0)
+    day = models.IntegerField(default=0)
+    hour = models.IntegerField(default=0)
+    minute = models.IntegerField(default=0)
+    second = models.IntegerField(default=0)
+    microsecond = models.IntegerField(default=0)
+    value = models.IntegerField(default=0)
+
 class Chats(models.Model):
     chat_id =   models.CharField(max_length=255, default=None)
     member_1 =  models.CharField(max_length=20, default=None)

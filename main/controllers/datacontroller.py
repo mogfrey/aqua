@@ -2,7 +2,7 @@ from googleapiclient.discovery import build
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from main.models import Farmers, Farms, Temperatures
+from main.models import Farmers, Farms, Temperatures, Ph, Level
 from json_tricks import dumps, loads
 from pusher import Pusher
 from bs4 import BeautifulSoup
@@ -144,7 +144,7 @@ def store_values(request):
 @api_view(['GET'])
 def fetch_values(request):
     
-    temperatures = Temperatures.objects.filter(month=10).order_by('day')[:120]
+    temperatures = Temperatures.objects.filter().order_by('day')[:120]
     details=[]
 
     for temperature in temperatures:
@@ -185,8 +185,15 @@ def clear_data(request):
 
 @api_view(['POST'])
 def post_distance(request):
-    _input =request.POST['data']
-    pusher_client.trigger('distance-channel', 'new-distance-event', {'value':_input})
+    _input =request.data['data']
+    pusher_client.trigger('distance-channel', 'new-distance-event', {'value': _input})
+    level = Level(
+        farm_id = 'LX580WAF5',
+        value   = _input
+    )
+
+    level.save()
+
     success = {
                 'message':'success',
                 'data':_input,
@@ -194,11 +201,72 @@ def post_distance(request):
             } 
     return Response(success)
 
+@api_view(['GET'])
+def get_distances(request):
+    temperatures = Level.objects.filter().order_by('day')[:120]
+    details=[]
+
+    for temperature in temperatures:
+        values={
+            'year': temperature.year,
+            'month': temperature.month,
+            'day': temperature.day,
+            'hour': temperature.hour ,
+            'minute': temperature.minute,
+            'second': temperature.second,
+            'microsecond': temperature.microsecond,
+            'value': temperature.value
+        }
+        details.append(values)
+
+    pusher_client.trigger('graph-channel', 'graph-temp-event', {'values': details})
+    
+    success = {
+            'message':'success',
+            'data':details,
+            'status_code':200
+            }
+
+    return Response(success)
+
+@api_view(['GET'])
+def get_ph(request):
+    temperatures = Ph.objects.filter().order_by('day')[:120]
+    details=[]
+
+    for temperature in temperatures:
+        values={
+            'year': temperature.year,
+            'month': temperature.month,
+            'day': temperature.day,
+            'hour': temperature.hour ,
+            'minute': temperature.minute,
+            'second': temperature.second,
+            'microsecond': temperature.microsecond,
+            'value': temperature.value
+        }
+        details.append(values)
+
+    pusher_client.trigger('graph-channel', 'graph-temp-event', {'values': details})
+    
+    success = {
+            'message':'success',
+            'data':details,
+            'status_code':200
+            }
+
+    return Response(success)
 
 @api_view(['POST'])
 def post_ph(request):
     _input =request.POST['data']
-    pusher_client.trigger('ph-channel', 'new-ph-event', {'value':_input})
+    pusher_client.trigger('ph-channel', 'new-ph-event', {'value': _input})
+    ph = Ph(
+        farm_id = 'LX580WAF5',
+        value   = _input
+    )
+
+    ph.save()
     success = {
                 'message':'success',
                 'data':_input,
@@ -256,24 +324,5 @@ def current_distance(temperature):
     return success
 
 
-
-
-
-
-
-
-
-    
-
-   
-
-        
-
-
-
-    
-
-
-    #+211 259 542 134
 
 
