@@ -172,7 +172,10 @@ def fetch_values(request):
 
 @api_view(['GET'])
 def clear_data(request):
-    delete= Temperatures.objects.all().delete()
+    delete = Temperatures.objects.all().delete()
+    Level.objects.all().delete()
+    Ph.objects.all().delete()
+    
     success = {
             'message':'success',
             'data':delete,
