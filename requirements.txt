@@ -15,7 +15,7 @@ django-rest-swagger==2.1.2
 djangorestframework==3.7.1
 drf-openapi==1.0.0
 google-api-python-client==1.6.4
-httplib2==0.10.3
+httplib2==0.19.0
 idna==2.6
 itypes==1.1.0
 Jinja2==2.9.6
