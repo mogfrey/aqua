@@ -18,7 +18,7 @@ google-api-python-client==1.6.4
 httplib2==0.10.3
 idna==2.6
 itypes==1.1.0
-Jinja2==2.9.6
+Jinja2==2.11.3
 json-tricks==3.8.0
 lxml==4.1.0
 Markdown==2.6.9
